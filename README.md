@@ -1,10 +1,10 @@
 # CS361_p3_S26
 
 ****************
-* Project 3 
-* Class
-* Date
-* Your name
+* Project 3: Turing Machine simulator
+* Class: CS361
+* 18 August 2026
+* Sherry de Villiers & ...
 ****************
 
 ### OVERVIEW:
