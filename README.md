@@ -72,9 +72,11 @@ What parts of the project did you find challenging? Is there anything
 that finally "clicked" for you in the process of working on this project?
 
 ### EXTRA CREDIT:
+
 If the project had opportunities for extra credit that you attempted,
 be sure to call it out so the grader does not overlook it.
-SOURCES:
+
+### SOURCES:
 All sources used outside of lecture notes, slides, and the textbook need
 to
 be cited here. If you used websites, used GenAI, asked your dad or your
