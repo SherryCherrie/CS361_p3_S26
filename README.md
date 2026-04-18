@@ -7,12 +7,12 @@
 * Your name
 ****************
 
-###OVERVIEW:
+### OVERVIEW:
 Concisely explain what the program does. If this exceeds a couple
 of sentences, you're going too far. The details go in other
 sections.
 
-###INCLUDED FILES:
+### INCLUDED FILES:
 List the files required for the project with a brief
 explanation of why each is included.
 e.g.
@@ -20,7 +20,7 @@ e.g.
 * Class2.java - source file
 * README - this file
 
-###COMPILING AND RUNNING:
+### COMPILING AND RUNNING:
 Give the command for compiling the program, the command
 for running the program, and any usage instructions the
 user needs.
@@ -37,7 +37,7 @@ Run the compiled class file with the command:
 $ java Class1
 Console output will give the results after the program finishes.
 
-###PROGRAM DESIGN AND IMPORTANT CONCEPTS:
+### PROGRAM DESIGN AND IMPORTANT CONCEPTS:
 This is the sort of information someone who really wants to
 understand your program - possibly to make future enhancements -
 would want to know.
@@ -54,7 +54,8 @@ explain them as well.
 If you were responsible for designing the program's classes and choosing
 how they work together, why did you design the program this way? What, if
 anything, could be improved?
-TESTING:
+
+### TESTING:
 How did you test your program to be sure it works and meets all of the
 requirements? What was the testing strategy? What kinds of tests were
 run?
@@ -62,7 +63,7 @@ Can your program handle bad input? Is your program idiot-proof? How do
 you
 know? What are the known issues / bugs remaining in your program?
 
-###DISCUSSION:
+### DISCUSSION:
 Discuss the issues you encountered during programming (development)
 and testing. What problems did you have? What did you have to research
 and learn on your own? What kinds of errors did you get? How did you
@@ -70,7 +71,7 @@ fix them?
 What parts of the project did you find challenging? Is there anything
 that finally "clicked" for you in the process of working on this project?
 
-###EXTRA CREDIT:
+### EXTRA CREDIT:
 If the project had opportunities for extra credit that you attempted,
 be sure to call it out so the grader does not overlook it.
 SOURCES:
