@@ -1,5 +1,7 @@
 package tm;
 
+import tm.Tape;
+import tm.TMState;
 import java.util.Set;
 
 /**

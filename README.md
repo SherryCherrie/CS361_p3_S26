@@ -21,6 +21,9 @@ e.g.
 * README - this file
 
 ### COMPILING AND RUNNING:
+
+javac -d out tm/*.java
+java -cp out tm.TMSimulator
 Give the command for compiling the program, the command
 for running the program, and any usage instructions the
 user needs.
