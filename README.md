@@ -23,7 +23,7 @@ e.g.
 ### COMPILING AND RUNNING:
 
 javac -d out tm/*.java
-java -cp out tm.TMSimulator
+java -cp out tm.TMSimulator <input file>
 Give the command for compiling the program, the command
 for running the program, and any usage instructions the
 user needs.

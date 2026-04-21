@@ -70,22 +70,23 @@ public class Tape {
 
     /**
      * Returns the character the head is currently pointing to
+     * if the char is a black returns '0'
      * @return char at the tapeHead
      */
-    public int readTape() {
+    public char readTape() {
         if(tapeHead >=0) {
             if(forwardTape[tapeHead]!='\0') {
                 return forwardTape[tapeHead];
             }else{
-                forwardTape[tapeHead] =0;
-                return 0;
+                forwardTape[tapeHead] = '0';
+                return '0';
             }
         }else{
             if(backwardTape[-1-tapeHead]!='\0') {
                 return backwardTape[-1-tapeHead];
             }else{
-                backwardTape[-1-tapeHead] =0;
-                return 0;
+                backwardTape[-1-tapeHead] = '0';
+                return '0';
             }
         }
     }
