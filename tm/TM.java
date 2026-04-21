@@ -1,10 +1,43 @@
 package tm;
 
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 import tm.Tape;
 import tm.TMState;
 
 public class TM implements TMInterface{
+
+    // Store sigma/ all TM states/ start/final states/ the working tape/ deterministic table
+    private final Set<Character> sigma;
+    private final Map<String, TMState> states;
+    private final Map<TMState, Map<Character, Transition>> transitions;
+    private TMState startState;
+    private TMState finalState;
+    private Tape tape;
+
+    // Stores one transition rule for a state on a single read symbol
+    private static class Transition {
+        private final TMState toState;
+        private final char writeSymb;
+        private final boolean move;
+
+        private Transition(TMState toState, char writeSymb, boolean move) {
+            this.toState = toState;
+            this.writeSymb = writeSymb;
+            this.move = move;
+        }
+    }
+
+    public TM() {
+        this.sigma = new LinkedHashSet<Character>();
+        this.states = new LinkedHashMap<String, TMState>();
+        this.transitions = new LinkedHashMap<TMState, Map<Character, Transition>>();
+        this.startState = null;
+        this.finalState = null;
+        this.tape = null;
+    }
 
     /**
      * Adds a state to the TM instance
@@ -14,7 +47,14 @@ public class TM implements TMInterface{
      */
     @Override
     public boolean addState(String name) {
-        return false;
+        if (name == null || states.containsKey(name)) {
+            return false;
+        }
+
+        TMState state = new TMState(name);
+        states.put(name, state);
+        transitions.put(state, new LinkedHashMap<Character, Transition>());
+        return true;
     }
 
     /**
@@ -25,7 +65,13 @@ public class TM implements TMInterface{
      */
     @Override
     public boolean setFinal(String name) {
-        return false;
+        TMState state = states.get(name);
+        if (state == null) {
+            return false;
+        }
+
+        finalState = state;
+        return true;
     }
 
     /**
@@ -36,7 +82,13 @@ public class TM implements TMInterface{
      */
     @Override
     public boolean setStart(String name) {
-        return false;
+        TMState state = states.get(name);
+        if (state == null) {
+            return false;
+        }
+
+        startState = state;
+        return true;
     }
 
     /**
@@ -46,7 +98,9 @@ public class TM implements TMInterface{
      */
     @Override
     public void addSigma(char symbol) {
-
+        if (symbol != '0') {
+            sigma.add(symbol);
+        }
     }
 
     /**
@@ -57,7 +111,19 @@ public class TM implements TMInterface{
      */
     @Override
     public Tape accepts(String s) {
-        return null;
+        if (startState == null) {
+            return null;
+        }
+
+        tape = new Tape(s == null ? "" : s);
+        TMState current = startState;
+
+        // Run transitions until the halting/final state is reached.
+        while (current != null && current != finalState) {
+            current = transition(current);
+        }
+
+        return tape;
     }
 
     /**
@@ -67,7 +133,7 @@ public class TM implements TMInterface{
      */
     @Override
     public Set<Character> getSigma() {
-        return Set.of();
+        return new LinkedHashSet<Character>(sigma);
     }
 
     /**
@@ -78,7 +144,7 @@ public class TM implements TMInterface{
      */
     @Override
     public TMState getState(String name) {
-        return null;
+        return states.get(name);
     }
 
     /**
@@ -89,7 +155,8 @@ public class TM implements TMInterface{
      */
     @Override
     public boolean isFinal(String name) {
-        return false;
+        TMState state = states.get(name);
+        return state != null && state == finalState;
     }
 
     /**
@@ -100,7 +167,8 @@ public class TM implements TMInterface{
      */
     @Override
     public boolean isStart(String name) {
-        return false;
+        TMState state = states.get(name);
+        return state != null && state == startState;
     }
 
     /**
@@ -112,7 +180,27 @@ public class TM implements TMInterface{
      */
     @Override
     public TMState transition(TMState from) {
-        return null;
+        if (from == null || tape == null) {
+            return null;
+        }
+
+        // Tape.readTape() uses numeric 0 for an uninitialized blank cell
+        // normalize that into the blank symbol character 0
+        int rawRead = tape.readTape();
+        char readSymb = (rawRead == 0) ? '0' : (char) rawRead;
+
+        Map<Character, Transition> stateTransitions = transitions.get(from);
+        if (stateTransitions == null) {
+            return null;
+        }
+
+        Transition next = stateTransitions.get(readSymb);
+        if (next == null) {
+            return null;
+        }
+
+        tape.writeMove(next.writeSymb, next.move);
+        return next.toState;
     }
 
     /**
@@ -127,6 +215,26 @@ public class TM implements TMInterface{
      */
     @Override
     public boolean addTransition(String fromState, String toState, char readSymb, char writeSymb, boolean move) {
-        return false;
+        TMState source = states.get(fromState);
+        TMState destination = states.get(toState);
+
+        if (source == null || destination == null) {
+            return false;
+        }
+
+        // valid tape symbols are blank 0 plus anything already added to sigma
+        if ((readSymb != '0' && !sigma.contains(readSymb)) ||
+            (writeSymb != '0' && !sigma.contains(writeSymb))) {
+            return false;
+        }
+
+        Map<Character, Transition> stateTransitions = transitions.get(source);
+        if (stateTransitions == null) {
+            stateTransitions = new LinkedHashMap<Character, Transition>();
+            transitions.put(source, stateTransitions);
+        }
+
+        stateTransitions.put(readSymb, new Transition(destination, writeSymb, move));
+        return true;
     }
 }
