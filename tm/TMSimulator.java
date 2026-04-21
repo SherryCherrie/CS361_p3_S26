@@ -118,6 +118,7 @@ public class TMSimulator {
             System.err.println("Error reading file: " + e.getMessage());
         } catch (RuntimeException e) {
             System.err.println("Simulation error: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

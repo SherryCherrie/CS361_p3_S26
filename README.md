@@ -23,7 +23,15 @@ e.g.
 ### COMPILING AND RUNNING:
 
 javac -d out tm/*.java
-java -cp out tm.TMSimulator <input file>
+java -cp out tm.TMSimulator <input file path>
+
+Note: not sure if these work on onyx
+Run and count the character in the output (excluding newlines)
+java -cp out tm.TMSimulator <input file path> | tr -d '\n' | wc -c
+
+Run and add up output
+java -cp out tm.TMSimulator <input file path> | awk '{for(i=1;i<=length($0);i++) sum += substr($0,i,1)} END {print sum}'
+
 Give the command for compiling the program, the command
 for running the program, and any usage instructions the
 user needs.

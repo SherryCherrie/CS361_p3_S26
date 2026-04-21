@@ -18,9 +18,14 @@ public class Tape {
     int increaseBy;
 
     public Tape(String initialStr) {
-        this.forwardTape = initialStr.toCharArray();
+        if(initialStr == null || initialStr.isEmpty()){
+            this.forwardTape = new char['0'];
+            this.forwardLen = 1;
+        }else {
+            this.forwardTape = initialStr.toCharArray();
+            this.forwardLen = initialStr.length();
+        }
         this.tapeHead = 0;
-        this.forwardLen = initialStr.length();
         this.backwardLen = 10;
         this.backwardTape = new char[backwardLen];
         this.increaseBy = 50;
@@ -100,7 +105,7 @@ public class Tape {
     }
 
     /**
-     * Returns a string of chars in the tape without leading and trailing blanks
+     * Returns a string of chars in the tape without leading and trailing null characters
      * @return
      */
     @Override
@@ -113,7 +118,8 @@ public class Tape {
         int start = backwardLen-1;
         if(backwardTape[0]!='\0') {
             // Find first significant char
-            while (start > -1 && (backwardTape[start] == '\0' || backwardTape[start] == '0')) {
+//            while (start > -1 && (backwardTape[start] == '\0' || backwardTape[start] == '0')) {
+            while (start > -1 && (backwardTape[start] == '\0')) {
                 start--;
             }
         }else{
@@ -123,7 +129,8 @@ public class Tape {
         //length of forwardTape that I want to include goes from index 0 to end
         // Find last significant char
         int end = forwardLen-1;
-        while (end > 0 && (forwardTape[end] == '\0' || forwardTape[end] == '0')) {
+//        while (end > 0 && (forwardTape[end] == '\0' || forwardTape[end] == '0')) {
+        while (end > 0 && (forwardTape[end] == '\0')) {
             end--;
         }
 
