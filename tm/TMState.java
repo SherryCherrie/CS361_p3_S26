@@ -3,6 +3,11 @@ package tm;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Hold a state name and keeps track of its transitions
+ * It also contains a method to perform a valid transition given the current tape of the machine
+ * @author Sherry de Villiers and Cesar Ochoa
+ */
 public class TMState extends State{
 
     private final Map<Character, Transition> transitions;

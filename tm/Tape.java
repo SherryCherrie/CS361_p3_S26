@@ -28,7 +28,7 @@ public class Tape {
         this.tapeHead = 0;
         this.backwardLen = 10;
         this.backwardTape = new char[backwardLen];
-        this.increaseBy = 50;
+        this.increaseBy = 1000;
     }
 
     /**
@@ -118,7 +118,6 @@ public class Tape {
         int start = backwardLen-1;
         if(backwardTape[0]!='\0') {
             // Find first significant char
-//            while (start > -1 && (backwardTape[start] == '\0' || backwardTape[start] == '0')) {
             while (start > -1 && (backwardTape[start] == '\0')) {
                 start--;
             }
@@ -129,7 +128,6 @@ public class Tape {
         //length of forwardTape that I want to include goes from index 0 to end
         // Find last significant char
         int end = forwardLen-1;
-//        while (end > 0 && (forwardTape[end] == '\0' || forwardTape[end] == '0')) {
         while (end > 0 && (forwardTape[end] == '\0')) {
             end--;
         }

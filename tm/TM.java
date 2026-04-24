@@ -7,33 +7,25 @@ import java.util.Set;
 import tm.Tape;
 import tm.TMState;
 
+/**
+ * A turing machine
+ * Given the information for a valid turing machine this class can simulate its behaviour
+ * This class contains the language alphabet the states and tape for the machine
+ * @author Sherry de Villiers and Cesar Ochoa
+ */
 public class TM implements TMInterface{
 
-    // Store sigma/ all TM states/ start/final states/ the working tape/ deterministic table
+    // Store sigma/ all TM states/ start/final states/ the working tape
     private final Set<Character> sigma;
     private final Map<String, TMState> states;
-//    private final Map<TMState, Map<Character, Transition>> transitions;
     private TMState startState;
     private TMState finalState;
     private Tape tape;
 
-    // Stores one transition rule for a state on a single read symbol
-//    private static class Transition {
-//        private final TMState toState;
-//        private final char writeSymb;
-//        private final boolean move;
-//
-//        private Transition(TMState toState, char writeSymb, boolean move) {
-//            this.toState = toState;
-//            this.writeSymb = writeSymb;
-//            this.move = move;
-//        }
-//    }
 
     public TM() {
         this.sigma = new LinkedHashSet<Character>();
         this.states = new LinkedHashMap<String, TMState>();
-//        this.transitions = new LinkedHashMap<TMState, Map<Character, Transition>>();
         this.startState = null;
         this.finalState = null;
         this.tape = null;
@@ -53,7 +45,6 @@ public class TM implements TMInterface{
 
         TMState state = new TMState(name);
         states.put(name, state);
-//        transitions.put(state, new LinkedHashMap<Character, Transition>());
         return true;
     }
 
@@ -183,27 +174,7 @@ public class TM implements TMInterface{
         if (from == null || tape == null) {
             return null;
         }
-
-        // Tape.readTape() uses numeric 0 for an uninitialized blank cell
-        // normalize that into the blank symbol character 0
-        // EDIT: that wasn't meant to do that I forgot to make it a char not an int
-//        int rawRead = tape.readTape();
-//        char readSymb = (rawRead == 0) ? '0' : (char) rawRead;
-//        char readSymb = tape.readTape();
-
         return from.transition(tape);
-//        Map<Character, Transition> stateTransitions = transitions.get(from);
-//        if (stateTransitions == null) {
-//            return null;
-//        }
-//
-//        Transition next = stateTransitions.get(readSymb);
-//        if (next == null) {
-//            return null;
-//        }
-//
-//        tape.writeMove(next.writeSymb, next.move);
-//        return next.toState;
     }
 
     /**
@@ -231,13 +202,6 @@ public class TM implements TMInterface{
             return false;
         }
 
-//        Map<Character, Transition> stateTransitions = transitions.get(source);
-//        if (stateTransitions == null) {
-//            stateTransitions = new LinkedHashMap<Character, Transition>();
-//            transitions.put(source, stateTransitions);
-//        }
-//
-//        stateTransitions.put(readSymb, new Transition(destination, writeSymb, move));
         return source.addTransition(readSymb, writeSymb, destination, move);
     }
 }

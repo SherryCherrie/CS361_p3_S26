@@ -15,7 +15,7 @@ import java.util.List;
  *  Tape symbol '0' is the blank symbol and is not added to sigma
  *  Transition lines are read in the order provided in the project specs
  *
- * @author Cesar Ochoa, Melody de Villiers
+ * @author Cesar Ochoa, Sherry de Villiers
  * @date 4/20/2026
  */
 public class TMSimulator {

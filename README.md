@@ -4,11 +4,11 @@
 * Project 3: Turing Machine simulator
 * Class: CS361
 * 18 August 2026
-* Sherry de Villiers & ...
+* Sherry de Villiers & Cesar Ochoa
 ****************
 
 ### OVERVIEW:
-The program sims the encoding of a deterministic bi infinite TM and its input string from a file.
+The program simulates the encoding of a deterministic bi infinite TM and its input string from a file.
 It then simulates how the machine runs on that input. Once the machine reaches its halting state, it prints 
 the contents of the traversed tape.
 
@@ -16,12 +16,12 @@ the contents of the traversed tape.
 test_files - included test files
 file0.txt
 file2.txt
-file3.txt
+file5.txt
 
 tm
 State.java - abstract state class used by TMState
 Tape.java - handles the reading, writing, and moving of tape
-TM.java - implements and simulatates the Turing Machine
+TM.java - implements and simulates the Turing Machine
 TMInterface.java - lists the required TM methods
 TMSimulator.java - main class that reads the input file, builds the machine, and the runs it
 TMState.java - stores the transitions for one Turing Machine state
@@ -31,7 +31,6 @@ TMState.java - stores the transitions for one Turing Machine state
 javac -d out tm/*.java
 java -cp out tm.TMSimulator <input file path>
 
-Note: not sure if these work on onyx
 Run and count the character in the output (excluding newlines)
 java -cp out tm.TMSimulator <input file path> | tr -d '\n' | wc -c
 
@@ -61,6 +60,10 @@ A lot of the overall structure stayed similar, especially keeping the machine lo
 to build the machine from the file. But the actual simulation had to change from tracking state behavior in an automaton to
 handling the read, write, and move process on a tape. The toughest parts were parsing the transition lines in the exact order
 required by the brief and making sure the blank tape cells are handled as the character 0.
+The tape also had some challenges since a char array was used to try and increase efficiency. In order to make
+the char array bi infinite the tape was implemented using two char arrays one to extend in each direction with a unified
+head. This way even though the head starts at zero it extended in both the positive and negative directions, because
+one array handles positive indexes while the other deals with the negative ones.
 
 --------------------------------------------------------------------------
 
